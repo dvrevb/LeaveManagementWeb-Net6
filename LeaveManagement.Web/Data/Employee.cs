@@ -4,8 +4,8 @@ namespace LeaveManagement.Web.Data
 {
     public class Employee : IdentityUser
     {
-        public string? Name { get; set; }
-        public string? Email { get; set; }
+        public string? Firstname { get; set; }
+        public string? Lastname { get; set; }
         public string? TaxId { get; set; }
         public DateTime DateofBirth { get; set; }
         public DateTime DateJoined { get; set; }
