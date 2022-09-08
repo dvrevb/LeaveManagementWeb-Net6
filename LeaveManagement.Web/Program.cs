@@ -24,6 +24,7 @@ builder.Services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(ILeaveTypeRepository), typeof(LeaveTypeRepository));
+builder.Services.AddScoped(typeof(ILeaveAllocationRepository), typeof(LeaveAllocationRepository));
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
