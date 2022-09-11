@@ -2,6 +2,6 @@
 {
     public class EmployeeAllocationVM : EmployeeListVM
     {
-        public List<LeaveAllocationVM> LeaveALlocations { get; set; }
+        public List<LeaveAllocationVM> LeaveAllocations { get; set; }
     }
 }
