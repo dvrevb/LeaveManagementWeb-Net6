@@ -1,11 +1,14 @@
-using LeaveManagement.Web.Configuration;
-using LeaveManagement.Web.Contracts;
-using LeaveManagement.Web.Data;
-using LeaveManagement.Web.Repositories;
-using LeaveManagement.Web.Services;
+using LeaveManagement.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using LeaveManagement.Application.Configurations;
+using LeaveManagement.Application.Contracts;
+using LeaveManagement.Application.Repositories;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using LeaveManagement.Web;
+using LeaveManagement.Web.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,19 +19,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
-     .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagementsystem.com"));
+builder.Host.UseSerilog((ctx, lc) => 
+    lc.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration));
+
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@leavemanagement.com"));
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(ILeaveTypeRepository), typeof(LeaveTypeRepository));
-builder.Services.AddScoped(typeof(ILeaveAllocationRepository), typeof(LeaveAllocationRepository));
-builder.Services.AddScoped(typeof(ILeaveRequestRepository), typeof(LeaveRequestRepository));
+builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+builder.Services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

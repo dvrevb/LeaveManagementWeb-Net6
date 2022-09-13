@@ -1,4 +1,4 @@
-﻿@model LeaveManagement.Web.Data.LeaveRequest
+﻿@model LeaveManagement.Data.LeaveRequest
 
 @{
     ViewData["Title"] = "Edit";
@@ -54,9 +54,9 @@
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="DataCreated" class="control-label"></label>
-                <input asp-for="DataCreated" class="form-control" />
-                <span asp-validation-for="DataCreated" class="text-danger"></span>
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateModified" class="control-label"></label>

@@ -4,12 +4,12 @@
     ViewData["Title"] = "Leave Request Details";
     string className;
     string headingText;
-    if (Model.Approved == null)
+    if(Model.Approved == null)
     {
         headingText = "Pending Approval";
         className = "warning";
     }
-    else if (Model.Approved == true)
+    else if(Model.Approved == true)
     {
         headingText = "Approved";
         className = "success";
@@ -29,7 +29,7 @@
     <p>
         <strong>Employee Name:</strong>  @Model.Employee.Firstname @Model.Employee.Lastname
     </p>
-    <hr />
+    <hr/>
     <p>
         <strong>Date Requested:</strong> @Html.DisplayFor(model => model.DateRequested)
     </p>
@@ -38,54 +38,59 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.LeaveType)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LeaveType.Name)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EndDate)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EndDate)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.RequestComments)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.RequestComments)
         </dd>
     </dl>
 </div>
 <div>
     <div class="row">
-        @if (Model.Approved == null)
-        {
-
-            <div class="col">
-                <form asp-action="ApproveRequest" class="form-inline">
-                    <input name="Id" value="@Model.Id" type="hidden" />
-                    <input name="approved" type="hidden" value="true" />
-                    <button type="submit" class="btn btn-success btn-lg">Approve</button>
-                </form>
-            </div>
-            <div class="col">
-                <form asp-action="ApproveRequest" class="form-inline">
-                    <input name="Id" value="@Model.Id" type="hidden" />
-                    <input name="approved" type="hidden" value="false" />
-                    <button type="submit" class="btn btn-danger btn-lg">Reject</button>
-                </form>
-            </div>
-        }
+    @if(Model.Approved == null)
+    {
+        
         <div class="col">
-            <a class="btn btn-dark btn-lg" asp-action="Index">Back to List</a>
+                <form asp-action="ApproveRequest" class="form-inline">
+                <input name="Id" value="@Model.Id" type="hidden" />
+                <input name="approved" type="hidden" value="true"/>
+                <button type="submit" class="btn btn-success btn-lg">Approve</button>
+            </form>
         </div>
-    </div>
+        <div class="col">
+            <form asp-action="ApproveRequest" class="form-inline">
+                <input name="Id" value="@Model.Id" type="hidden" />
+                <input name="approved" type="hidden" value="false"/>
+                <button type="submit" class="btn btn-danger btn-lg">Reject</button>
+            </form>
+        </div>
+            }
+            <div class="col">
+                <a class="btn btn-dark btn-lg" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+       
+        
+ 
+
+
 </div>

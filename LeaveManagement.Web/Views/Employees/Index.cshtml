@@ -4,11 +4,8 @@
     ViewData["Title"] = "Employees";
 }
 
-<h1>View</h1>
+<h1>Employees</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -36,16 +33,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lastname)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateJoined)
             </td>
             <td>
-
                 <a asp-action="ViewAllocations" class="btn btn-primary" asp-route-id="@item.Id">View Allocations</a> 
-
             </td>
         </tr>
 }
